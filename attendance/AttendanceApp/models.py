@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import(
     AbstractBaseUser, BaseUserManager
 )
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from django.core.validators import RegexValidator
 # Create your models here.
 
@@ -100,3 +103,9 @@ class Attendence(models.Model):
      date = models.DateField( auto_now=True)
      time = models.TimeField(auto_now=True)
      status = models.BooleanField(default=False)
+
+
+@receiver(post_save, sender=Student)
+def create_attendance(sender, instance, created, **kwargs):
+    if created:
+        Attendence.objects.create(student_id=instance)

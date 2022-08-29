@@ -96,7 +96,6 @@ class StudentAdmin(admin.ModelAdmin):
         return my_urls + urls
 
     def my_view2(self,request):
-       print(os.system("python faces.py"))
        return HttpResponse("recognizing")
    
     # def my_view2(self, request):
